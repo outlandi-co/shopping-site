@@ -1,7 +1,15 @@
 // src/pages/HomePage.jsx
 import { useState } from 'react';
-import ProductList from '../components/ProductList';
 import FileUpload from '../components/FileUpload';
+import ApparelContainer from '../components/ApparelContainer';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+`;
 
 const HomePage = () => {
   const [uploadedImageUrl, setUploadedImageUrl] = useState('');
@@ -11,11 +19,11 @@ const HomePage = () => {
   };
 
   return (
-    <div>
+    <Container>
       <h1>Shopping Site</h1>
       <FileUpload onUpload={handleUpload} />
-      <ProductList uploadedImageUrl={uploadedImageUrl} />
-    </div>
+      <ApparelContainer overlayImageUrl={uploadedImageUrl} />
+    </Container>
   );
 };
 
