@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://backend-shopping-site.onrender.com/api', // Replace with your backend URL on Render
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
 export default instance;
