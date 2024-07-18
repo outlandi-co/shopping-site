@@ -1,37 +1,40 @@
-// src/components/FileUpload.jsx
-import { useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { useDropzone } from 'react-dropzone';
-import axios from '../api/axios';
+import { useState } from 'react';
+import axios from 'axios';
 
-const FileUpload = ({ onUpload }) => {
-  const onDrop = useCallback(acceptedFiles => {
+const FileUpload = () => {
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    if (!file) {
+      alert('Please select a file first.');
+      return;
+    }
+
     const formData = new FormData();
-    formData.append('file', acceptedFiles[0]);
+    formData.append('file', file);
 
-    axios.post('/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    }).then(response => {
-      onUpload(response.data.fileUrl);
-    }).catch(error => {
+    try {
+      const response = await axios.post('https://backend-shopping-site.onrender.com/api/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log('File uploaded successfully:', response.data);
+    } catch (error) {
       console.error('Error uploading file:', error);
-    });
-  }, [onUpload]);
-
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+    }
+  };
 
   return (
-    <div {...getRootProps()} style={{ border: '2px dashed #ccc', padding: '20px', textAlign: 'center' }}>
-      <input {...getInputProps()} />
-      <p>Drag &apos;n&apos; drop a file here, or click to select a file</p>
+    <div>
+      <input type="file" onChange={handleFileChange} />
+      <button onClick={handleUpload}>Upload</button>
     </div>
   );
-};
-
-FileUpload.propTypes = {
-  onUpload: PropTypes.func.isRequired,
 };
 
 export default FileUpload;
