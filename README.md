@@ -16,7 +16,6 @@ Currently, two official plugins are available:
 - add animation affects
 - add content to each page
 
-
 ## Troubleshooting
 
 -troubleshooting fileupload errors
