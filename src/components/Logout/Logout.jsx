@@ -1,19 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import authService from '../services/authService';
+import authService from '../../services/authService';
 
 const Logout = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
     authService.logout();
-    navigate('/');
-    window.location.reload();
+    navigate('/login');
   };
 
   return (
-    <button onClick={handleLogout}>
-      Logout
-    </button>
+    <button onClick={handleLogout}>Logout</button>
   );
 };
 
