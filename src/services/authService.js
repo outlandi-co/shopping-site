@@ -1,5 +1,6 @@
 const authService = {
   register: async (credentials) => {
+    console.log('Sending registration credentials to server:', credentials);
     const response = await fetch('http://localhost:3000/api/auth/register', {
       method: 'POST',
       headers: {
@@ -10,6 +11,7 @@ const authService = {
 
     if (!response.ok) {
       const error = await response.json();
+      console.error('Error response from server:', error);
       throw new Error('Registration failed: ' + error.message);
     }
 
@@ -18,6 +20,7 @@ const authService = {
   },
 
   login: async (credentials) => {
+    console.log('Sending login credentials to server:', credentials);
     const response = await fetch('http://localhost:3000/api/auth/login', {
       method: 'POST',
       headers: {
@@ -27,7 +30,9 @@ const authService = {
     });
 
     if (!response.ok) {
-      throw new Error('Login failed');
+      const error = await response.json();
+      console.error('Error response from server:', error);
+      throw new Error('Login failed: ' + error.message);
     }
 
     const data = await response.json();
