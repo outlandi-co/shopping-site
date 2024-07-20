@@ -15,3 +15,8 @@ Currently, two official plugins are available:
 - create pricing and other json data of relating to the description of each products
 - add animation affects
 - add content to each page
+
+
+## Troubleshooting
+
+-troubleshooting fileupload errors
