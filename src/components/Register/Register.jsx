@@ -1,41 +1,42 @@
-// src/components/Register/Register.jsx
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import authService from '../../services/authService';
-import './register.scss';
 
 const Register = () => {
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
-  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await authService.register(credentials);
-      navigate('/login');
+      await authService.register({ username, password });
+      setMessage('Registration successful!');
     } catch (error) {
-      console.error('Registration failed', error);
+      setMessage(`Registration failed: ${error.message}`);
     }
   };
 
   return (
-    <div className="register-page">
+    <div>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={credentials.username}
-          onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
           placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
         />
         <input
           type="password"
-          value={credentials.password}
-          onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
           placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <button type="submit">Register</button>
       </form>
+      {message && <p>{message}</p>}
     </div>
   );
 };
