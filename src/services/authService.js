@@ -1,5 +1,3 @@
-// src/services/authService.js
-
 const authService = {
   register: async (credentials) => {
     const response = await fetch('http://localhost:3000/api/auth/register', {
