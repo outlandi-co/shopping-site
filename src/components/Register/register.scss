@@ -1,4 +1,4 @@
-.login-page {
+.register-page {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,8 +8,8 @@
   margin-right: auto;
   background-color: #242424;
 
-  .login {
-    background: rgba(16, 123, 173, 0.8); // Added opacity
+  .register {
+    background: rgba(255, 255, 255, 0.8); // Added opacity
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

@@ -1,26 +1,19 @@
-import authService from '../services/authService';
-import Logout from './Logout';
+// src/components/Profile/Profile.jsx
+import authService from '../../services/authService';
 
 const Profile = () => {
-  const currentUser = authService.getCurrentUser();
+  const isAuthenticated = authService.isAuthenticated();
+
+  if (!isAuthenticated) {
+    return <div>You need to login to access this page.</div>;
+  }
 
   return (
-    <div>
-      {currentUser ? (
-        <div>
-          <h1>Profile</h1>
-          <p><strong>Username:</strong> {currentUser.username}</p>
-          <p><strong>Email:</strong> {currentUser.email}</p>
-          <Logout />
-        </div>
-      ) : (
-        <div>
-          <h1>You are not logged in.</h1>
-        </div>
-      )}
+    <div className="profile">
+      <h1>Profile Page</h1>
+      <p>Welcome to your profile!</p>
     </div>
   );
 };
 
 export default Profile;
-

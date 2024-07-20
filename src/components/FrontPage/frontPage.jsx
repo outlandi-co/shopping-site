@@ -2,8 +2,8 @@ import './frontPage.scss';
 
 const FrontPage = () => (
   <div className="front-page">
-    <h1>Welcome to the Front Page</h1>
-    <p>This is the front page of the site.</p>
+    <h1>Welcome to the Home Page</h1>
+    <p>This is the home page of your application.</p>
   </div>
 );
 
