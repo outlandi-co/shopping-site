@@ -1,48 +1,46 @@
 .file-upload {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 
-  .overlay-popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .overlay-content {
+  .background-image {
     position: relative;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-  }
-
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
-  }
-
-  .overlay-image {
-    width: 300px; /* Adjust size as needed */
-    height: 400px; /* Adjust size as needed */
-    background: url('/images/shirt.jpg') no-repeat center center; /* Ensure this path is correct */
+    width: 400px; /* Adjust as needed */
+    height: 400px; /* Adjust as needed */
     background-size: cover;
-    position: relative;
+    background-position: center;
 
-    .uploaded-image {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      max-width: 100%;
-      max-height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
+
+    .overlay-container {
+      position: absolute;
+      border: 1px dashed #ccc;
+
+      .overlay-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+
+  input[type="file"] {
+    margin-top: 20px;
+  }
+
+  button {
+    margin-top: 10px;
+  }
+
+  .error-message {
+    color: red;
+    margin-top: 10px;
   }
 }

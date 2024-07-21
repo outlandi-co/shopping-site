@@ -1,5 +1,5 @@
-// src/App.jsx
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import IntroPage from './components/IntroPage/IntroPage';
 import FrontPage from './components/FrontPage/frontPage';
 import About from './components/About/About';
 import Contact from './components/ContactPage/contactPage';
@@ -7,6 +7,7 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Profile from './components/Profile/Profile';
 import FileUpload from './components/FileUpload';
+import Overlay from './components/Overlay'; // Ensure correct path
 import './app.scss';  // Correct path
 
 const App = () => (
@@ -23,6 +24,7 @@ const App = () => (
         </ul>
       </nav>
       <Routes>
+        <Route path="/" element={<IntroPage />} />
         <Route path="/" element={<FrontPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
@@ -30,7 +32,7 @@ const App = () => (
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/fileupload" element={<FileUpload />} />
-        
+        <Route path="/overlay" element={<Overlay />} /> {/* Add the overlay route */}
       </Routes>
     </div>
   </Router>
