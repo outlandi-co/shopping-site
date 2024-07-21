@@ -1,36 +1,33 @@
-import axios from 'axios';
-import { useState } from 'react';
+import { useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
+import './FileUpload.scss';
 
 const FileUpload = () => {
-  const [file, setFile] = useState(null);
-  const [message, setMessage] = useState('');
-
-  const onFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
-
-  const onFileUpload = async () => {
+  const onDrop = useCallback((acceptedFiles) => {
     const formData = new FormData();
-    formData.append('file', file);
+    acceptedFiles.forEach(file => {
+      formData.append('file', file);
+    });
 
-    try {
-      const response = await axios.post('http://localhost:3000/api/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-      setMessage(response.data.message);
-    } catch (error) {
-      setMessage(`Error uploading file: ${error.response?.data?.message || error.message}`);
-    }
-  };
+    fetch('http://localhost:3000/api/upload', {
+      method: 'POST',
+      body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <div>
-      <h2>File Upload</h2>
-      <input type="file" onChange={onFileChange} />
-      <button onClick={onFileUpload}>Upload</button>
-      {message && <p>{message}</p>}
+    <div className="file-upload" {...getRootProps()}>
+      <input {...getInputProps()} />
+      <p>Drag and drop some files here, or click to select files</p>
     </div>
   );
 };

@@ -1,7 +1,10 @@
+const API_URL = import.meta.env.VITE_API_BASE_URL;
+
 const authService = {
   register: async (credentials) => {
     console.log('Sending registration credentials to server:', credentials);
-    const response = await fetch('http://localhost:3000/api/auth/register', {
+    console.log('API URL:', `${API_URL}/auth/register`);
+    const response = await fetch(`${API_URL}/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -9,6 +12,7 @@ const authService = {
       body: JSON.stringify(credentials),
     });
 
+    console.log('Response status:', response.status);
     if (!response.ok) {
       const error = await response.json();
       console.error('Error response from server:', error);
@@ -21,7 +25,8 @@ const authService = {
 
   login: async (credentials) => {
     console.log('Sending login credentials to server:', credentials);
-    const response = await fetch('http://localhost:3000/api/auth/login', {
+    console.log('API URL:', `${API_URL}/auth/login`);
+    const response = await fetch(`${API_URL}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -29,6 +34,7 @@ const authService = {
       body: JSON.stringify(credentials),
     });
 
+    console.log('Response status:', response.status);
     if (!response.ok) {
       const error = await response.json();
       console.error('Error response from server:', error);
