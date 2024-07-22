@@ -43,6 +43,7 @@ const authService = {
 
     const data = await response.json();
     localStorage.setItem('token', data.token);
+    return data.user; // Return user data for setting in state
   },
 
   isAuthenticated: () => {
