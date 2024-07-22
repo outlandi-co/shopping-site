@@ -1,4 +1,4 @@
-.intro-page {
+.welcome-page {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,19 +22,5 @@
   p {
     font-size: 1.5rem;
     margin-bottom: 40px;
-  }
-
-  .start-button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #ff7e5f;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-
-    &:hover {
-      background-color: #ff5e3a;
-    }
   }
 }

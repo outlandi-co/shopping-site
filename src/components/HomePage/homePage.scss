@@ -1,18 +1,129 @@
-.front-page {
+.store-container {
+  display: flex;
+  padding: 20px;
+  text-align: center;
+
+  h1 {
+    margin-bottom: 20px;
+    color: #333; // Dark grey color
+  }
+}
+
+.category-sidebar {
+  position: fixed;
+  top: 60px; /* Adjust based on nav height */
+  left: 0;
+  width: 200px;
+  height: calc(100% - 60px); /* Adjust based on nav height */
+  margin-right: 20px;
+  padding: 20px;
+  background: #655b5b;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  text-align: left;
+}
+
+.category-sidebar h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.category-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.category-sidebar li {
+  margin-bottom: 10px;
+}
+
+.category-sidebar li button {
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  text-align: left;
+  padding: 5px;
+  width: 100%;
+  font-size: 1rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.product-grid-container {
+  flex: 1;
+  margin-left: 220px; /* Adjust based on sidebar width */
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Set to 5 columns */
+  gap: 10px; /* Reduce gap to close in the columns */
+  justify-content: center;
+}
+
+.product-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  max-width: 100%;
+  padding: 15px; /* Adjust padding if needed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  .product-name,
+  .product-description,
+  .product-price {
+    color: #333; // Dark grey color
+  }
+}
+
+.product-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.product-name {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.product-description {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.product-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.home-page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20; /* Ensure it is above other elements */
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center text inside the home page */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  text-align: center;
-  background-color: #242424;
+  max-width: 1280px; /* Adjust width as needed */
+  width: 100%;
+  border-radius: 10px; /* Add rounded corners */
+}
 
-  h1 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-  }
+.home-page h1 {
+  margin-bottom: 20px;
+}
 
-  p {
-    font-size: 1.2em;
-  }
+.home-page p {
+  margin-bottom: 20px;
 }

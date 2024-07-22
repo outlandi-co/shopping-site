@@ -15,7 +15,11 @@ Currently, two official plugins are available:
 - create pricing and other json data of relating to the description of each products
 - add animation affects
 - add content to each page
+- updating products info on product cards
+- create memberships
 
 ## Troubleshooting
 
--troubleshooting fileupload errors
+- troubleshooting fileupload errors
+- troubleshooting images for the json storage within the mongo database
+- troubleshooting homePage

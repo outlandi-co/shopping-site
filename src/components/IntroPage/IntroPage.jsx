@@ -23,8 +23,9 @@ const IntroPage = () => {
 
   return (
     <animated.div className="intro-page" style={fade}>
-      <h1>Welcome to Our Site</h1>
-      <p>Loading...</p>
+      <h1>Welcome to OUTLANDI</h1>
+      <p>Your journey to the extraordinary begins here.</p>
+      <button className="start-button" onClick={() => navigate('/home')}>Get Started</button>
     </animated.div>
   );
 };

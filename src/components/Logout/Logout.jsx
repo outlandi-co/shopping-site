@@ -1,11 +1,13 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../../services/authService';
 
-const Logout = () => {
+const Logout = ({ setUser }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
     authService.logout();
+    setUser(null); // Clear the user state in the parent component
     navigate('/login');
   };
 

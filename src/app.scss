@@ -6,6 +6,7 @@
 
 body {
   font-family: Arial, sans-serif;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .app {
@@ -13,11 +14,14 @@ body {
   flex-direction: column;
   min-height: 100vh;
   width: 100vw;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 nav {
   background-color: #333;
   padding: 10px;
+  z-index: 10;
+  position: relative;
 }
 
 .nav-links {
@@ -37,4 +41,139 @@ nav {
 
 .login-link {
   margin-left: auto;
+}
+
+.main-container {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  margin-top: 10px; /* Adjust margin if needed */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  position: relative;
+  z-index: 1; /* Ensure it is below the intro and welcome pages */
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  overflow: auto; /* Ensure content is scrollable if needed */
+  margin-right: 250px; /* Adjust based on sidebar width */
+}
+
+.sidebar {
+  position: fixed;
+  right: 0;
+  top: 60px; /* Adjust based on nav height */
+  height: calc(100% - 60px); /* Adjust based on nav height */
+  width: 250px;
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  color: white;
+  z-index: 2; /* Lower z-index to ensure intro and welcome pages overlay */
+}
+
+.sidebar h3 {
+  margin-top: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+  text-decoration: underline;
+}
+
+.badge-container {
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5); /* Slightly darker transparent background */
+  border-radius: 5px;
+  text-align: center;
+}
+
+.badge-container h3 {
+  margin-top: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.membership-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.membership-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.membership-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.membership-form form div {
+  margin-bottom: 15px;
+}
+
+.membership-form form label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.membership-form form input,
+.membership-form form select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #98d30f;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.membership-form form button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #333333;
+  color: rgb(114, 221, 26);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.membership-form form button:hover {
+  background-color: #555;
+}
+
+.intro-page {
+  position: fixed;
+  z-index: 20; /* Ensure it is above other elements */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  color: white;
+  text-align: center;
+  padding: 20px;
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
-const Login = () => {
+const Login = ({ setUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -29,6 +29,7 @@ const Login = () => {
       if (response.status === 200) {
         setMessage('Login successful');
         setError(null);
+        setUser(username);  // Set the user name in the parent component
       } else {
         setError(result.message);
         setMessage('');
