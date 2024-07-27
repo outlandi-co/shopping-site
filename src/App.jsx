@@ -19,6 +19,8 @@ const App = () => {
 
   const shouldShowSidebar = location.pathname !== '/';
 
+  console.log("User in App component:", user); // Debugging log
+
   return (
     <div className="app">
       <nav>

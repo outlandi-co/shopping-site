@@ -23,6 +23,7 @@ const IntroPage = () => {
 
   return (
     <animated.div className="intro-page" style={fade}>
+      <img src="/logo_transparent.png" alt="Outlandi Logo" className="logo" />
       <h1>Welcome to OUTLANDI</h1>
       <p>Your journey to the extraordinary begins here.</p>
       <button className="start-button" onClick={() => navigate('/home')}>Get Started</button>

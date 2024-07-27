@@ -13,7 +13,7 @@ const Login = ({ setUser }) => {
     const userData = { username, password };
     console.log('Sending login credentials to server:', userData);
     console.log('API URL:', `${API_URL}/api/auth/login`);
-    
+
     try {
       const response = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
@@ -30,6 +30,7 @@ const Login = ({ setUser }) => {
         setMessage('Login successful');
         setError(null);
         setUser(username);  // Set the user name in the parent component
+        console.log('User set:', username); // Debugging log
       } else {
         setError(result.message);
         setMessage('');
