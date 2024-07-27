@@ -17,6 +17,7 @@ Currently, two official plugins are available:
 - add content to each page
 - updating products info on product cards
 - create memberships
+- updated membership
 
 ## Troubleshooting
 
