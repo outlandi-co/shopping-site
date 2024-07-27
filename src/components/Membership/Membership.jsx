@@ -2,10 +2,25 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './membership.scss'; // Import the membership.scss file
 
-const Membership = () => {
+const Membership = ({ user }) => {
   const [dateStarted, setDateStarted] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
   const [planType, setPlanType] = useState('');
+  const [memberships, setMemberships] = useState([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchMemberships = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/memberships');
+        setMemberships(response.data);
+      } catch (error) {
+        console.error('Error fetching memberships:', error);
+      }
+    };
+
+    fetchMemberships();
+  }, []);
 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
@@ -33,13 +48,17 @@ const Membership = () => {
       dateStarted,
       expirationDate,
       planType,
+      userId: user ? user.id : 'guest' // Use a unique identifier for the user, e.g., user.id or 'guest' for non-logged-in users
     };
 
     try {
-      const response = await axios.post('http://localhost:5000/api/memberships', membershipDetails);
+      const response = await axios.post('http://localhost:3000/api/memberships', membershipDetails);
+      setMemberships([...memberships, response.data]);
+      setError('');
       console.log('Membership Details:', response.data);
     } catch (error) {
       console.error('Error submitting membership details:', error);
+      setError(error.response.data.error);
     }
   };
 
@@ -69,7 +88,16 @@ const Membership = () => {
           </select>
         </div>
         <button type="submit">Submit</button>
+        {error && <p className="error">{error}</p>}
       </form>
+      <h2>Existing Memberships</h2>
+      <ul>
+        {memberships.map((membership) => (
+          <li key={membership._id}>
+            {membership.planType} - Expires on: {new Date(membership.expirationDate).toLocaleDateString()}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

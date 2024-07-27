@@ -1,13 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import authService from '../../services/authService';
+import React from 'react';
 
 const Logout = ({ setUser }) => {
-  const navigate = useNavigate();
-
   const handleLogout = () => {
-    authService.logout();
     setUser(null);
-    navigate('/login');
+    // Additional logout logic (e.g., clear tokens)
   };
 
   return (

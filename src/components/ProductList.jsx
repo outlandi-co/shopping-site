@@ -1,34 +1,39 @@
-// src/components/ProductList.jsx
-import { useState, useEffect } from 'react';
-import ProductItem from './ProductItem';
-import styled from 'styled-components';
-import axios from '../api/axios';
+import React from 'react';
+import './store.scss'; // Ensure you have this file for styling
 
-const ProductGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 10px;
-`;
-
-const ProductList = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    axios.get('/products')
-      .then(response => {
-        setProducts(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching products:', error);
-      });
-  }, []);
-
+const ProductList = ({ products }) => {
   return (
-    <ProductGrid>
+    <div className="product-grid">
       {products.map(product => (
-        <ProductItem key={product.id} product={product} />
+        <div key={product._id} className="product-card">
+          {product.photos && product.photos.length > 0 && (
+            <img
+              src={`http://localhost:3000${product.photos[0]}`} // Display the first photo
+              alt={product.name}
+              className="product-image"
+            />
+          )}
+          <h2 className="product-name">{product.name}</h2>
+          <p className="product-description">{product.description}</p>
+          <p className="product-price">${product.price}</p>
+          <div className="product-options">
+            {product.options.map((option, index) => (
+              <div key={index} className="product-option">
+                <p>Color: {option.color}</p>
+                {option.images && option.images.map((image, imgIndex) => (
+                  <img
+                    key={imgIndex}
+                    src={`http://localhost:3000${image}`}
+                    alt={`${product.name} - ${option.color}`}
+                    className="product-option-image"
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
       ))}
-    </ProductGrid>
+    </div>
   );
 };
 
