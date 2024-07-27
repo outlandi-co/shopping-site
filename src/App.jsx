@@ -8,10 +8,10 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Profile from './components/Profile/Profile';
 import FileUpload from './components/FileUpload';
-import Overlay from './components/Overlay'; // Ensure correct path
+import Overlay from './components/Overlay';
 import Membership from './components/Membership/Membership'; // Import the Membership component
-import Logout from './components/Logout/Logout'; // Import the Logout component
-import './app.scss';  // Correct path
+import Logout from './components/Logout/Logout';
+import './app.scss';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -31,7 +31,7 @@ const App = () => {
           {!user && <li className="login-link"><Link to="/login">Login</Link></li>}
           {!user && <li className="register-link"><Link to="/register">Register</Link></li>}
           {user && <li><Link to="/fileupload">File Upload</Link></li>}
-          {user && <li><Link to="/membership">Membership</Link></li>}
+          <li><Link to="/membership">Membership</Link></li>
           {user && (
             <li>
               <Logout setUser={setUser} />
@@ -50,7 +50,7 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             {user && <Route path="/profile" element={<Profile />} />}
             {user && <Route path="/fileupload" element={<FileUpload />} />}
-            {user && <Route path="/membership" element={<Membership />} />}
+            <Route path="/membership" element={<Membership user={user} />} />
             {user && <Route path="/overlay" element={<Overlay />} />}
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
