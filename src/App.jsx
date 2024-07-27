@@ -31,7 +31,7 @@ const App = () => {
           {!user && <li className="login-link"><Link to="/login">Login</Link></li>}
           {!user && <li className="register-link"><Link to="/register">Register</Link></li>}
           {user && <li><Link to="/fileupload">File Upload</Link></li>}
-          <li><Link to="/membership">Membership</Link></li>
+          {user && <li><Link to="/membership">Membership</Link></li>}
           {user && (
             <li>
               <Logout setUser={setUser} />
@@ -50,7 +50,7 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             {user && <Route path="/profile" element={<Profile />} />}
             {user && <Route path="/fileupload" element={<FileUpload />} />}
-            <Route path="/membership" element={<Membership user={user} />} />
+            {user && <Route path="/membership" element={<Membership />} />}
             {user && <Route path="/overlay" element={<Overlay />} />}
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
