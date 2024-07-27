@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../../services/authService';
 
@@ -7,7 +6,7 @@ const Logout = ({ setUser }) => {
 
   const handleLogout = () => {
     authService.logout();
-    setUser(null); // Clear the user state in the parent component
+    setUser(null);
     navigate('/login');
   };
 
