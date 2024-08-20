@@ -1,87 +1,80 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
-import HomePage from './components/HomePage/homePage';
-import IntroPage from './components/IntroPage/IntroPage';
-import About from './components/About/About';
-import Contact from './components/ContactPage/contactPage';
-import Login from './components/Login/Login';
-import Register from './components/Register/Register';
-import Profile from './components/Profile/Profile';
-import FileUpload from './components/FileUpload';
-import Overlay from './components/Overlay';
-import Membership from './components/Membership/Membership'; // Import the Membership component
-import Logout from './components/Logout/Logout';
-import './app.scss';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import RegisterPage from './pages/RegisterPage/RegisterPage';
+import MembershipPage from './pages/MembershipPage/MembershipPage';
+import AboutPage from './pages/AboutPage/AboutPage';
+import ContactPage from './pages/ContactPage/ContactPage';
+import FileUploadImage from './pages/FileUploadImage/FileUploadImage';
+import HomePage from './pages/Home-Page/HomePage';
+import IntroPage from './pages/IntroPage/IntroPage';
+import ProductsPage from './pages/ProductsPage/productsPage';
+import ProfilePage from './pages/ProfilePage/profilePage';
+import LogoutButton from './pages/LogoutButton/LogoutButton';
+
+import './styles/app.scss';
 
 const App = () => {
-  const [user, setUser] = useState(null);
-  const location = useLocation();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const shouldShowSidebar = location.pathname !== '/';
-
-  console.log("User in App component:", user); // Debugging log
+  useEffect(() => {
+    const token = Cookies.get('authToken');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   return (
-    <div className="app">
-      <nav>
-        <ul className="nav-links">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
-          {!user && <li className="login-link"><Link to="/login">Login</Link></li>}
-          {!user && <li className="register-link"><Link to="/register">Register</Link></li>}
-          {user && <li><Link to="/fileupload">File Upload</Link></li>}
-          {user && <li><Link to="/membership">Membership</Link></li>}
-          {user && (
-            <li>
-              <Logout setUser={setUser} />
-            </li>
-          )}
-        </ul>
-      </nav>
-      <div className={`main-container ${shouldShowSidebar ? 'with-sidebar' : ''}`}>
-        <div className="main-content">
+    <Router>
+      <div className="app-container">
+        <header className="header">
+          <HeaderButtons isAuthenticated={isAuthenticated} />
+        </header>
+        <main className="main-content">
           <Routes>
-            <Route path="/" element={<IntroPage />} />
-            <Route path="/home" element={<HomePage user={user} />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login setUser={setUser} />} />
-            <Route path="/register" element={<Register />} />
-            {user && <Route path="/profile" element={<Profile />} />}
-            {user && <Route path="/fileupload" element={<FileUpload />} />}
-            {user && <Route path="/membership" element={<Membership />} />}
-            {user && <Route path="/overlay" element={<Overlay />} />}
-            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/membership" element={<MembershipPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/file-upload" element={<FileUploadImage />} />
+            <Route path="/intro" element={<IntroPage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
-          {user && <h1>Welcome, {user}!</h1>}
-        </div>
-        {user && shouldShowSidebar && (
-          <div className="sidebar">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><Link to="/profile">Profile</Link></li>
-              <li><Link to="/settings">Settings</Link></li>
-              <li><Link to="/help">Help</Link></li>
-              {/* Add more links as needed */}
-            </ul>
-            <div className="badge-container">
-              <h3>Badges</h3>
-              <p>Future badges will be displayed here.</p>
-            </div>
-          </div>
-        )}
+        </main>
       </div>
+    </Router>
+  );
+};
+
+const HeaderButtons = ({ isAuthenticated }) => {
+  const navigate = useNavigate();
+  const [showLogin, setShowLogin] = useState(false);
+
+  // Debugging: Check if HeaderButtons is rendering
+  console.log('HeaderButtons rendered');
+
+  const handleLoginClick = () => {
+    setShowLogin(true);
+  };
+
+  return (
+    <div className="header-buttons">
+      {!isAuthenticated ? (
+        <>
+          <button className="btn-primary" onClick={handleLoginClick}>Login</button>
+          <button className="btn-secondary" onClick={() => navigate('/register')}>Register</button>
+          <button className="btn-secondary" onClick={() => navigate('/membership')}>Membership</button>
+        </>
+      ) : (
+        <LogoutButton />
+      )}
+      <button className="btn-primary" onClick={() => navigate('/view-cart')}>View Cart</button>
+      <button className="btn-secondary" onClick={() => navigate('/checkout')}>Checkout</button>
     </div>
   );
 };
 
-const AppWrapper = () => (
-  <Router>
-    <Routes>
-      <Route path="/*" element={<App />} />
-    </Routes>
-  </Router>
-);
-
-export default AppWrapper;
+export default App;
