@@ -10,8 +10,6 @@ import HomePage from './pages/Home-Page/HomePage';
 import IntroPage from './pages/IntroPage/IntroPage';
 import ProductsPage from './pages/ProductsPage/productsPage';
 import ProfilePage from './pages/ProfilePage/profilePage';
-import CheckOutPage from './pages/CheckOut-Page/CheckOutPage'; // Ensure this is the correct path and casing
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage'; // Ensure this is the correct path and casing
 import LogoutButton from './pages/LogoutButton/LogoutButton';
 
 import './styles/app.scss';
@@ -70,8 +68,7 @@ const App = () => {
             <Route path="/intro" element={<IntroPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/checkout" element={<CheckOutPage />} />
-            <Route path="*" element={<NotFoundPage />} /> {/* Add NotFoundPage route */}
+            {/* You can add other routes here as needed */}
           </Routes>
         </main>
       </div>
