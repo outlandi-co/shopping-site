@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  justify-content: flex-end; /* Ensure it's aligned to the right */
+  align-items: center;
+  padding: 20px;
+  background-color: #f8f9fa; /* Light gray background */
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+
+  button {
+    margin-left: 10px;
+  }
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}

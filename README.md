@@ -1,26 +1,7 @@
-# React + Vite
+# Accomplishments
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Created files for a shopping site
 
-Currently, two official plugins are available:
+- It's my personal side business I am working on that will allow customers to upload their artwork for screenprinting
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## shopping-site
-
-## Next Tasks
-
-- create products page to allow customers to view the products
-- create pricing and other json data of relating to the description of each products
-- add animation affects
-- add content to each page
-- updating products info on product cards
-- create memberships
-- updated membership
-
-## Troubleshooting
-
-- troubleshooting fileupload errors
-- troubleshooting images for the json storage within the mongo database
-- troubleshooting homePage
+## Work in Progress
