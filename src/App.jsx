@@ -10,9 +10,37 @@ import HomePage from './pages/Home-Page/HomePage';
 import IntroPage from './pages/IntroPage/IntroPage';
 import ProductsPage from './pages/ProductsPage/productsPage';
 import ProfilePage from './pages/ProfilePage/profilePage';
+import CheckOutPage from './pages/CheckOut-Page/CheckOutPage'; // Ensure this is the correct path and casing
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage'; // Ensure this is the correct path and casing
 import LogoutButton from './pages/LogoutButton/LogoutButton';
 
 import './styles/app.scss';
+
+// Define the HeaderButtons component here
+const HeaderButtons = ({ isAuthenticated }) => {
+  const navigate = useNavigate();
+  const [showLogin, setShowLogin] = useState(false);
+
+  const handleLoginClick = () => {
+    setShowLogin(true);
+  };
+
+  return (
+    <div className="header-buttons">
+      {!isAuthenticated ? (
+        <>
+          <button className="btn-primary" onClick={handleLoginClick}>Login</button>
+          <button className="btn-secondary" onClick={() => navigate('/register')}>Register</button>
+          <button className="btn-secondary" onClick={() => navigate('/membership')}>Membership</button>
+        </>
+      ) : (
+        <LogoutButton />
+      )}
+      <button className="btn-primary" onClick={() => navigate('/view-cart')}>View Cart</button>
+      <button className="btn-secondary" onClick={() => navigate('/checkout')}>Checkout</button>
+    </div>
+  );
+};
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -42,38 +70,12 @@ const App = () => {
             <Route path="/intro" element={<IntroPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/checkout" element={<CheckOutPage />} />
+            <Route path="*" element={<NotFoundPage />} /> {/* Add NotFoundPage route */}
           </Routes>
         </main>
       </div>
     </Router>
-  );
-};
-
-const HeaderButtons = ({ isAuthenticated }) => {
-  const navigate = useNavigate();
-  const [showLogin, setShowLogin] = useState(false);
-
-  // Debugging: Check if HeaderButtons is rendering
-  console.log('HeaderButtons rendered');
-
-  const handleLoginClick = () => {
-    setShowLogin(true);
-  };
-
-  return (
-    <div className="header-buttons">
-      {!isAuthenticated ? (
-        <>
-          <button className="btn-primary" onClick={handleLoginClick}>Login</button>
-          <button className="btn-secondary" onClick={() => navigate('/register')}>Register</button>
-          <button className="btn-secondary" onClick={() => navigate('/membership')}>Membership</button>
-        </>
-      ) : (
-        <LogoutButton />
-      )}
-      <button className="btn-primary" onClick={() => navigate('/view-cart')}>View Cart</button>
-      <button className="btn-secondary" onClick={() => navigate('/checkout')}>Checkout</button>
-    </div>
   );
 };
 
