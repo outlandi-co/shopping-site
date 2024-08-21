@@ -1,7 +1,7 @@
-// src/components/ProductCard/ProductCard.jsx
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../../styles/ProductCard.scss';
+// Ensure the path is correct relative to this file's location
+import '../../styles/productCard.scss';
 
 const ProductCard = ({ product, onAddToCart }) => {
   const imageUrl = product.imageUrl || 'https://via.placeholder.com/100';
