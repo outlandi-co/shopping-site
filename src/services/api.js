@@ -1,9 +1,10 @@
-// src/services/api.js
 import Cookies from 'js-cookie';
+
+const apiUrl = process.env.REACT_APP_API_URL; // or VITE_API_URL if you are using Vite
 
 export const registerUser = async (userData) => {
   try {
-    const response = await fetch('/api/users/register', {
+    const response = await fetch(`${apiUrl}/api/users/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -25,7 +26,7 @@ export const registerUser = async (userData) => {
 
 export const loginUser = async (userData) => {
   try {
-    const response = await fetch('/api/users/login', {
+    const response = await fetch(`${apiUrl}/api/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,7 +53,7 @@ export const getProducts = async () => {
     const token = Cookies.get('authToken');
     console.log('Auth token:', token);
 
-    const response = await fetch('/api/products', {
+    const response = await fetch(`${apiUrl}/api/products`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -66,7 +67,6 @@ export const getProducts = async () => {
     const data = await response.json();
     console.log('Products data fetched from API:', data); // Log the fetched data
 
-    // Assuming data is either an array or an object containing a 'products' array
     if (Array.isArray(data)) {
       return data; // Return directly if it's an array of products
     } else if (data && Array.isArray(data.products)) {
@@ -85,7 +85,7 @@ export const getUserProfile = async () => {
   try {
     const token = Cookies.get('authToken');
 
-    const response = await fetch('/api/users/profile', {
+    const response = await fetch(`${apiUrl}/api/users/profile`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
