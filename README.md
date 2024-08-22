@@ -7,5 +7,6 @@
 - Updated API.js
 - Had to update env file with prepend api after url
 - Updated db and server files
+- Just committing to test the trigger of the Render Site
 
 ## Work in Progress
