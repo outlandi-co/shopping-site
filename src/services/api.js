@@ -8,7 +8,7 @@ export const getProducts = async () => {
     const token = Cookies.get('authToken');
     console.log('Auth token:', token);
 
-    const response = await fetch(`${apiUrl}/api/products`, {
+    const response = await fetch(`${apiUrl}/products`, {
       headers: {
         Authorization: token ? `Bearer ${token}` : '', // Include token if available
       },
@@ -39,7 +39,7 @@ export const getProducts = async () => {
 // Register User
 export const registerUser = async (userData) => {
   try {
-    const response = await fetch(`${apiUrl}/api/users/register`, {
+    const response = await fetch(`${apiUrl}/users/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ export const registerUser = async (userData) => {
 // Login User
 export const loginUser = async (userData) => {
   try {
-    const response = await fetch(`${apiUrl}/api/users/login`, {
+    const response = await fetch(`${apiUrl}/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ export const getUserProfile = async () => {
   try {
     const token = Cookies.get('authToken');
 
-    const response = await fetch(`${apiUrl}/api/users/profile`, {
+    const response = await fetch(`${apiUrl}/users/profile`, {
       headers: {
         Authorization: token ? `Bearer ${token}` : '', // Include token if available
       },
