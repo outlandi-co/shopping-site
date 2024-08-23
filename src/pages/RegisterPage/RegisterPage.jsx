@@ -1,7 +1,5 @@
-// src/pages/RegisterPage/RegisterPage.jsx
-
 import React, { useState } from 'react';
-import { registerUser } from '../../services/api'; // Correct import
+import { registerUser } from '../../services/api';  // Ensure the path is correct
 
 const RegisterPage = () => {
   const [userData, setUserData] = useState({ username: '', email: '', password: '' });
@@ -15,7 +13,7 @@ const RegisterPage = () => {
     try {
       const response = await registerUser(userData);
       console.log('User registered successfully:', response);
-      // Add any post-registration logic here (e.g., redirect to login or profile page)
+      // Handle successful registration, e.g., redirect to login
     } catch (error) {
       console.error('Registration failed:', error);
     }
