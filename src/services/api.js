@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3000'; // Fallback to localhost if not defined
+const apiUrl = process.env.REACT_APP_API_URL;
 
 // Fetch Products
 export const getProducts = async () => {
