@@ -10,7 +10,7 @@ export const getProducts = async () => {
 
     const response = await fetch(`${apiUrl}/api/products`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: token ? `Bearer ${token}` : '', // Include token if available
       },
     });
 
@@ -91,7 +91,7 @@ export const getUserProfile = async () => {
 
     const response = await fetch(`${apiUrl}/api/users/profile`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: token ? `Bearer ${token}` : '', // Include token if available
       },
     });
 
