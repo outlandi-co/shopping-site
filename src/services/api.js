@@ -1,6 +1,10 @@
 import Cookies from 'js-cookie';
 
-const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl = import.meta.env.VITE_API_URL; // Ensure this environment variable is correctly set
+
+if (!apiUrl) {
+  throw new Error('API URL is not defined. Please set VITE_API_URL in your environment.');
+}
 
 // Fetch Products
 export const getProducts = async () => {
@@ -39,23 +43,29 @@ export const getProducts = async () => {
 // Register User
 export const registerUser = async (userData) => {
   try {
-    const response = await fetch(`${apiUrl}/users/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
+      console.log('API URL:', apiUrl);
+      console.log('Sending registration data:', userData);
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Network response was not ok: ${errorText}`);
-    }
+      const response = await fetch(`${apiUrl}/users/register`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+      });
 
-    return await response.json();
+      if (!response.ok) {
+          const errorText = await response.text();
+          console.error(`Error: ${errorText}`);
+          throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('Registration successful:', data);
+      return data;
   } catch (error) {
-    console.error('Failed to register user:', error);
-    throw error;
+      console.error('Failed to register user:', error);
+      throw error;
   }
 };
 
@@ -76,7 +86,7 @@ export const loginUser = async (userData) => {
     }
 
     const data = await response.json();
-    Cookies.set('authToken', data.token, { expires: 7 });
+    Cookies.set('authToken', data.token, { expires: 7 }); // Save token in cookies for 7 days
     return data;
   } catch (error) {
     console.error('Failed to login user:', error);
