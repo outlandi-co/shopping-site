@@ -1,39 +1,39 @@
 import React, { useState } from 'react';
-import { registerUser } from '../../services/api';  // Ensure the path is correct
+import { registerUser } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
   const [userData, setUserData] = useState({ username: '', email: '', password: '' });
-  const [isSubmitting, setIsSubmitting] = useState(false); // State to track submission
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate(); // ✅ React Router navigation hook
 
-  // Handle input changes
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if all fields are filled
     if (!userData.username || !userData.email || !userData.password) {
       alert('All fields are required');
       return;
     }
 
-    // Prevent multiple submissions
-    if (isSubmitting) return; 
-    
-    setIsSubmitting(true); // Disable further submissions
+    if (isSubmitting) return;
+    setIsSubmitting(true);
 
     try {
       console.log('Sending registration data:', userData);
       const response = await registerUser(userData);
       console.log('User registered successfully:', response);
-      // Handle successful registration, e.g., redirect to login
+
+      // ✅ Redirect to login page
+      navigate('/login');
     } catch (error) {
       console.error('Registration failed:', error);
+      alert('Registration failed. Please try again.');
     } finally {
-      setIsSubmitting(false); // Re-enable submissions
+      setIsSubmitting(false);
     }
   };
 
