@@ -3,7 +3,7 @@ import { useNavigate, Routes, Route } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 import HomePage from './pages/Home-Page/HomePage';
-import LoginPage from './pages/LoginPage/LoginPage'; // ✅ Fixed case
+import LoginPage from './pages/LoginPage/LoginPage';
 import MembershipPage from './pages/MembershipPage/MembershipPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import CheckoutPage from './pages/CheckOutPage/CheckOutPage'; // ✅ Already fixed
