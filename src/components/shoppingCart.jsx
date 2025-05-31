@@ -1,40 +1,31 @@
-// src/components/ShoppingCart/ShoppingCart.jsx
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
 const ShoppingCart = ({ cartItems, onRemoveFromCart }) => {
-  const totalAmount = cartItems.reduce((acc, item) => acc + item.price, 0);
+  if (!cartItems || cartItems.length === 0) {
+    return <div>Your cart is empty</div>;
+  }
+
+  const total = cartItems.reduce((acc, item) => acc + item.price, 0); // Calculate total price
 
   return (
-    <div className="shopping-cart">
-      <h2>Your Cart</h2>
-      {cartItems.length > 0 ? (
-        <ul>
-          {cartItems.map((item) => (
-            <li key={item.id}>
-              {item.name} - ${item.price.toFixed(2)}
-              <button onClick={() => onRemoveFromCart(item.id)}>Remove</button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Your cart is empty</p>
-      )}
-      <p>Total: ${totalAmount.toFixed(2)}</p>
-      <button onClick={() => alert('Proceed to checkout')}>Checkout</button>
+    <div>
+      <h2>Shopping Cart</h2>
+      <ul>
+        {cartItems.map(item => (
+          <li key={item.id}>
+            {item.name} - ${item.price.toFixed(2)}
+            <button onClick={() => onRemoveFromCart(item.id)}>Remove</button>
+          </li>
+        ))}
+      </ul>
+      <p>Total: ${total.toFixed(2)}</p>
     </div>
   );
 };
 
 ShoppingCart.propTypes = {
-  cartItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-    })
-  ).isRequired,
+  cartItems: PropTypes.arrayOf(PropTypes.object).isRequired,
   onRemoveFromCart: PropTypes.func.isRequired,
 };
 

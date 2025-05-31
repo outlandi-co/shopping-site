@@ -1,108 +1,127 @@
 import Cookies from 'js-cookie';
 
-const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl = import.meta.env.VITE_API_URL;
 
-// Fetch Products
+if (!apiUrl) {
+  throw new Error('API URL is not defined. Please set VITE_API_URL in your environment.');
+}
+
+// ✅ Fetch Products
 export const getProducts = async () => {
   try {
     const token = Cookies.get('authToken');
-    console.log('Auth token:', token);
 
-    const response = await fetch(`${apiUrl}/products`, {
+    const response = await fetch(`${apiUrl}/api/products`, {
+      method: 'GET',
       headers: {
-        Authorization: token ? `Bearer ${token}` : '', // Include token if available
+        'Authorization': token ? `Bearer ${token}` : '',
+        'Content-Type': 'application/json',
       },
+      credentials: 'include',
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`Network response was not ok: ${errorText}`);
+      throw new Error(`Fetch failed: ${errorText}`);
     }
 
     const data = await response.json();
-    console.log('Products data fetched from API:', data);
+    if (Array.isArray(data)) return data;
+    if (Array.isArray(data.products)) return data.products;
 
-    if (Array.isArray(data)) {
-      return data;
-    } else if (data && Array.isArray(data.products)) {
-      return data.products;
-    } else {
-      console.error('Unexpected data structure:', data);
-      return [];
-    }
+    console.warn('Unexpected product response structure:', data);
+    return [];
   } catch (error) {
-    console.error('Failed to fetch products:', error);
+    console.error('getProducts error:', error.message);
     throw error;
   }
 };
 
-// Register User
+// ✅ Register User and Store Token
 export const registerUser = async (userData) => {
   try {
-    const response = await fetch(`${apiUrl}/users/register`, {
+    const response = await fetch(`${apiUrl}/api/users/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(userData),
+      credentials: 'include',
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`Network response was not ok: ${errorText}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Failed to register user:', error);
-    throw error;
-  }
-};
-
-// Login User
-export const loginUser = async (userData) => {
-  try {
-    const response = await fetch(`${apiUrl}/users/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Network response was not ok: ${errorText}`);
+      throw new Error(`Registration failed: ${errorText}`);
     }
 
     const data = await response.json();
-    Cookies.set('authToken', data.token, { expires: 7 });
+
+    if (data.token) {
+      Cookies.set('authToken', data.token, { expires: 7 });
+    }
+
     return data;
   } catch (error) {
-    console.error('Failed to login user:', error);
+    console.error('registerUser error:', error.message);
     throw error;
   }
 };
 
-// Fetch User Profile
+// ✅ Login User
+export const loginUser = async (userData) => {
+  try {
+    const response = await fetch(`${apiUrl}/api/users/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Login failed: ${errorText}`);
+    }
+
+    const data = await response.json();
+
+    if (data.token) {
+      Cookies.set('authToken', data.token, { expires: 7 });
+    } else {
+      throw new Error('Login did not return a token.');
+    }
+
+    return data;
+  } catch (error) {
+    console.error('loginUser error:', error.message);
+    throw error;
+  }
+};
+
+// ✅ Fetch User Profile
 export const getUserProfile = async () => {
   try {
     const token = Cookies.get('authToken');
 
-    const response = await fetch(`${apiUrl}/users/profile`, {
+    const response = await fetch(`${apiUrl}/api/users/profile`, {
+      method: 'GET',
       headers: {
-        Authorization: token ? `Bearer ${token}` : '', // Include token if available
+        'Authorization': token ? `Bearer ${token}` : '',
+        'Content-Type': 'application/json',
       },
+      credentials: 'include',
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`Network response was not ok: ${errorText}`);
+      throw new Error(`Profile fetch failed: ${errorText}`);
     }
 
-    return await response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.error('Failed to fetch user profile:', error);
+    console.error('getUserProfile error:', error.message);
     throw error;
   }
 };

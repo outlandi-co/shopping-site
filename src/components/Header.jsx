@@ -1,12 +1,10 @@
-// src/components/Header.js
 import React, { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../components/AuthContext'; // Make sure this path is correct
 
 const Header = () => {
   const { authToken, login, logout } = useContext(AuthContext);
 
   const handleLogin = () => {
-    // Replace with actual user data input or form submission logic
     const userData = { username: 'test', password: 'password' };
     login(userData);
   };
@@ -19,6 +17,8 @@ const Header = () => {
       ) : (
         <button onClick={handleLogin}>Login</button>
       )}
+      <button onClick={() => window.location.href = '/register'}>Register</button>
+      <button onClick={() => window.location.href = '/membership'}>Membership</button>
     </header>
   );
 };

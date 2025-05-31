@@ -1,7 +1,7 @@
-import React, { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 
-export const AuthContext = createContext();
+export const AuthContext = createContext(); // Ensure this is exported
 
 export const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(null);
@@ -15,7 +15,8 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (userData) => {
     try {
-      const response = await fetch('/api/users/login', {
+      const apiUrl = import.meta.env.VITE_API_URL; // Correctly import the environment variable
+      const response = await fetch(`${apiUrl}/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
