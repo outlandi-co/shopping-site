@@ -5,6 +5,7 @@ import HomePage from './pages/Home-Page/HomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import MembershipPage from './pages/MembershipPage/MembershipPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
+import CheckoutPage from './pages/CheckOutPage/CheckOutPage'; // ✅ Fixed casing
 
 const AppRoutes = ({ isAuthenticated, setIsAuthenticated, handleAddToCart }) => {
   const navigate = useNavigate();
@@ -45,6 +46,7 @@ const AppRoutes = ({ isAuthenticated, setIsAuthenticated, handleAddToCart }) => 
         <Route path="/login" element={<LoginPage handleLogin={handleLogin} />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/membership" element={<MembershipPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} /> {/* ✅ Added route */}
         <Route path="/" element={<HomePage onAddToCart={handleAddToCart} />} />
       </Routes>
     </>
