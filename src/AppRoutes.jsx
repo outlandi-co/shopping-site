@@ -1,11 +1,12 @@
 import React from 'react';
 import { useNavigate, Routes, Route } from 'react-router-dom';
 import Cookies from 'js-cookie';
+
 import HomePage from './pages/Home-Page/HomePage';
-import LoginPage from './pages/LoginPage/LoginPage';
+import LoginPage from './pages/loginPage/LoginPage'; // ✅ Fixed case
 import MembershipPage from './pages/MembershipPage/MembershipPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
-import CheckoutPage from './pages/CheckOutPage/CheckOutPage'; // ✅ Fixed casing
+import CheckoutPage from './pages/CheckOutPage/CheckOutPage'; // ✅ Already fixed
 
 const AppRoutes = ({ isAuthenticated, setIsAuthenticated, handleAddToCart }) => {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ const AppRoutes = ({ isAuthenticated, setIsAuthenticated, handleAddToCart }) => 
         <Route path="/login" element={<LoginPage handleLogin={handleLogin} />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/membership" element={<MembershipPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} /> {/* ✅ Added route */}
+        <Route path="/checkout" element={<CheckoutPage />} /> {/* ✅ Added */}
         <Route path="/" element={<HomePage onAddToCart={handleAddToCart} />} />
       </Routes>
     </>
