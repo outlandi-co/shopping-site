@@ -6,7 +6,6 @@ import LoginPage from './pages/LoginPage/LoginPage'; // ✅ Must match your fold
 import MembershipPage from './pages/MembershipPage/MembershipPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import CheckoutPage from './pages/CheckOutPage/CheckOutPage';
-import EntryPage from './components/EntryPage';
 
 
 
@@ -45,7 +44,7 @@ const AppRoutes = ({ isAuthenticated, setIsAuthenticated, handleAddToCart }) => 
       </header>
 
       <Routes>
-        <Route path="/" element={<EntryPage />} />
+        
         <Route path="/home" element={<HomePage onAddToCart={handleAddToCart} />} />
         <Route path="/login" element={<LoginPage handleLogin={handleLogin} />} />
         <Route path="/register" element={<RegisterPage />} />

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import ShoppingCart from './components/shoppingCart';
+import ShoppingCart from './components/ShoppingCart';
 import AppRoutes from './AppRoutes';
-import EntryPage from './components/EntryPage';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-  const [splashComplete, setSplashComplete] = useState(false); // Controls when to show main app
 
   useEffect(() => {
     const token = Cookies.get('authToken');
@@ -17,31 +15,25 @@ const App = () => {
   }, []);
 
   const handleAddToCart = (item) => {
-    setCartItems([...cartItems, item]);
+    setCartItems((prevItems) => [...prevItems, item]);
   };
 
   const handleRemoveFromCart = (itemId) => {
-    setCartItems(cartItems.filter((item) => item.id !== itemId));
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
   };
 
   return (
-    <div>
-      {!splashComplete ? (
-        <EntryPage onComplete={() => setSplashComplete(true)} />
-      ) : (
-        <>
-          <ShoppingCart
-            cartItems={cartItems}
-            onRemoveFromCart={handleRemoveFromCart}
-          />
-          <AppRoutes
-            isAuthenticated={isAuthenticated}
-            setIsAuthenticated={setIsAuthenticated}
-            handleAddToCart={handleAddToCart}
-          />
-        </>
-      )}
-    </div>
+    <>
+      <ShoppingCart
+        cartItems={cartItems}
+        onRemoveFromCart={handleRemoveFromCart}
+      />
+      <AppRoutes
+        isAuthenticated={isAuthenticated}
+        setIsAuthenticated={setIsAuthenticated}
+        handleAddToCart={handleAddToCart}
+      />
+    </>
   );
 };
 
