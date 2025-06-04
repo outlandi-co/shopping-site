@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import ShoppingCart from './components/ShoppingCart';
+// import ShoppingCart from './components/ShoppingCart';
 import AppRoutes from './AppRoutes';
 
 const App = () => {
@@ -24,10 +24,10 @@ const App = () => {
 
   return (
     <>
-      <ShoppingCart
+      {/* <ShoppingCart
         cartItems={cartItems}
         onRemoveFromCart={handleRemoveFromCart}
-      />
+      /> */}
       <AppRoutes
         isAuthenticated={isAuthenticated}
         setIsAuthenticated={setIsAuthenticated}
