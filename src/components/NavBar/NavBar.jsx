@@ -1,7 +1,7 @@
 // src/components/Navbar.jsx
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import '../../styles/NavBar.scss';
+import '../../styles/navBar.scss';
 
 const Navbar = ({ isAuthenticated, handleLogout, cartItems = [] }) => {
   return (
