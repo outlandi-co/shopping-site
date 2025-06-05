@@ -10,6 +10,9 @@ import CheckoutPage from './pages/CheckOutPage/CheckOutPage';
 import Store from './pages/Store';
 import ProductDetail from './pages/ProductDetail';
 import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
+import AdminPage from './pages/AdminPage/AdminPage';
+
+
 
 const AppRoutes = ({
   isAuthenticated,
@@ -73,6 +76,8 @@ const AppRoutes = ({
         />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+
       </Routes>
     </>
   );
