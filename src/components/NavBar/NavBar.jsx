@@ -1,19 +1,33 @@
+// src/components/Navbar.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import '../../styles/NavBar.scss';
 
-const NavBar = () => {
+const Navbar = ({ isAuthenticated, handleLogout, cartItems = [] }) => {
   return (
     <nav className="navbar">
       <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/contact">Contact</Link></li>
-        <li><Link to="/register">Register</Link></li>
-        <li><Link to="/membership">Membership</Link></li>
-        <Link to="/store">Store</Link>
+        <li><NavLink to="/home">Home</NavLink></li>
+        <li><NavLink to="/about">About</NavLink></li>
+        <li><NavLink to="/contact">Contact</NavLink></li>
+        <li><NavLink to="/store">Store</NavLink></li>
+        <li><NavLink to="/membership">Membership</NavLink></li>
+        {!isAuthenticated ? (
+          <>
+            <li><NavLink to="/login">Login</NavLink></li>
+            <li><NavLink to="/register">Register</NavLink></li>
+            <li><NavLink to="/forgot-password">Forgot Password</NavLink></li>
+          </>
+        ) : (
+          <>
+            <li><NavLink to="/checkout">Checkout</NavLink></li>
+            <li><button onClick={handleLogout} className="logout-button">Logout</button></li>
+          </>
+        )}
+        <li className="cart-count">🛒 {cartItems.length}</li>
       </ul>
     </nav>
   );
 };
 
-export default NavBar;
+export default Navbar;

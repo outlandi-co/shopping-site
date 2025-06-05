@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import AppRoutes from './AppRoutes';
+import NavBar from './components/NavBar/NavBar'; // ✅ Import NavBar
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -23,13 +24,16 @@ const App = () => {
   };
 
   return (
-    <AppRoutes
-      isAuthenticated={isAuthenticated}
-      setIsAuthenticated={setIsAuthenticated}
-      handleAddToCart={handleAddToCart}
-      handleRemoveFromCart={handleRemoveFromCart}
-      cartItems={cartItems}
-    />
+    <>
+      <NavBar /> {/* ✅ NavBar shows on every page */}
+      <AppRoutes
+        isAuthenticated={isAuthenticated}
+        setIsAuthenticated={setIsAuthenticated}
+        handleAddToCart={handleAddToCart}
+        handleRemoveFromCart={handleRemoveFromCart}
+        cartItems={cartItems}
+      />
+    </>
   );
 };
 

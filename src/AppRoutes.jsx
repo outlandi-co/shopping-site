@@ -9,8 +9,15 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import CheckoutPage from './pages/CheckOutPage/CheckOutPage';
 import Store from './pages/Store';
 import ProductDetail from './pages/ProductDetail';
+import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
 
-const AppRoutes = ({ isAuthenticated, setIsAuthenticated, handleAddToCart }) => {
+const AppRoutes = ({
+  isAuthenticated,
+  setIsAuthenticated,
+  handleAddToCart,
+  handleRemoveFromCart,
+  cartItems
+}) => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -34,6 +41,7 @@ const AppRoutes = ({ isAuthenticated, setIsAuthenticated, handleAddToCart }) => 
               <button onClick={() => navigate('/login')}>Login</button>
               <button onClick={() => navigate('/register')}>Register</button>
               <button onClick={() => navigate('/membership')}>Membership</button>
+              <button onClick={() => navigate('/forgot-password')}>Forgot Password</button>
             </>
           ) : (
             <>
@@ -52,9 +60,19 @@ const AppRoutes = ({ isAuthenticated, setIsAuthenticated, handleAddToCart }) => 
         <Route path="/login" element={<LoginPage handleLogin={handleLogin} />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/membership" element={<MembershipPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/store" element={<Store />} />
+        <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} />} />
+        <Route
+          path="/store"
+          element={
+            <Store
+              onAddToCart={handleAddToCart}
+              cartItems={cartItems}
+              onRemoveFromCart={handleRemoveFromCart}
+            />
+          }
+        />
         <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Routes>
     </>
   );

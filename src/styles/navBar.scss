@@ -1,0 +1,46 @@
+/* src/styles/navBar.scss */
+.navbar {
+  background-color: #1a1a1a;
+  padding: 1rem 2rem;
+
+  ul {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: #f1f1f1;
+    text-decoration: none;
+    font-weight: 500;
+
+    &.active {
+      border-bottom: 2px solid #ffcc00;
+    }
+
+    &:hover {
+      color: #ffcc00;
+    }
+  }
+
+  .logout-button {
+    background: none;
+    border: none;
+    color: #f1f1f1;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      color: #ff4d4f;
+    }
+  }
+
+  .cart-count {
+    margin-left: auto;
+    font-weight: bold;
+    color: #ffcc00;
+  }
+}
