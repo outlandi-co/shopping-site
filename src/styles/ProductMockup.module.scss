@@ -1,0 +1,24 @@
+// 🔷 shopping-site/src/styles/ProductMockup.module.scss
+.mockupWrapper {
+  text-align: center;
+}
+
+.previewContainer {
+  position: relative;
+  width: 300px;
+  margin: 20px auto;
+}
+
+.baseProduct {
+  width: 100%;
+  display: block;
+}
+
+.overlayArtwork {
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  width: 60%;
+  opacity: 0.9;
+  pointer-events: none;
+}

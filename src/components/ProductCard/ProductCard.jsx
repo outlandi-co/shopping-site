@@ -1,31 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-// Ensure the path is correct relative to this file's location
-import '../../styles/productCard.scss';
+import '../styles/ProductCard.scss';
 
 const ProductCard = ({ product, onAddToCart }) => {
-  const imageUrl = product.imageUrl || 'https://via.placeholder.com/100';
-
   return (
     <div className="product-card">
-      <img src={imageUrl} alt={product.name} className="product-image" />
-      <h2>{product.name}</h2>
-      <p>{product.description}</p>
-      <p>${product.price}</p>
-      <button onClick={() => onAddToCart(product)}>Add to Cart</button>
+      <img src={product.imageUrl} alt={product.name} className="product-image" />
+      <div className="product-info">
+        <h3>{product.name}</h3>
+        <p className="price">${product.price.toFixed(2)}</p>
+        <div className="product-buttons">
+          <button onClick={() => onAddToCart(product)}>Buy</button>
+          <button onClick={() => alert(`Viewing: ${product.name}`)}>View Details</button>
+        </div>
+      </div>
     </div>
   );
-};
-
-ProductCard.propTypes = {
-  product: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    price: PropTypes.number.isRequired,
-    imageUrl: PropTypes.string,
-  }).isRequired,
-  onAddToCart: PropTypes.func.isRequired,
 };
 
 export default ProductCard;

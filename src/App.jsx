@@ -1,6 +1,6 @@
+// App.jsx
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-// import ShoppingCart from './components/ShoppingCart';
 import AppRoutes from './AppRoutes';
 
 const App = () => {
@@ -19,21 +19,17 @@ const App = () => {
   };
 
   const handleRemoveFromCart = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+    setCartItems((prevItems) => prevItems.filter((item) => item._id !== itemId));
   };
 
   return (
-    <>
-      {/* <ShoppingCart
-        cartItems={cartItems}
-        onRemoveFromCart={handleRemoveFromCart}
-      /> */}
-      <AppRoutes
-        isAuthenticated={isAuthenticated}
-        setIsAuthenticated={setIsAuthenticated}
-        handleAddToCart={handleAddToCart}
-      />
-    </>
+    <AppRoutes
+      isAuthenticated={isAuthenticated}
+      setIsAuthenticated={setIsAuthenticated}
+      handleAddToCart={handleAddToCart}
+      handleRemoveFromCart={handleRemoveFromCart}
+      cartItems={cartItems}
+    />
   );
 };
 
