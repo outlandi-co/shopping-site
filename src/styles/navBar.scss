@@ -1,6 +1,8 @@
 /* navBar.scss */
+
+/* Base (Light Mode) */
 .navbar {
-  background-color: #1a1a1a;
+  background-color: #f9f9f9;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -18,7 +20,7 @@
 
   a,
   button {
-    color: #f1f1f1;
+    color: #222;
     background: none;
     border: none;
     font-weight: 500;
@@ -28,36 +30,72 @@
     transition: color 0.3s ease;
 
     &:hover {
-      color: #ffcc00;
+      color: #ff9900;
     }
 
     &.active {
-      border-bottom: 2px solid #ffcc00;
+      border-bottom: 2px solid #ff9900;
     }
   }
 
   .cart-count {
     font-weight: bold;
-    color: #ffcc00;
-    font-size: 1rem;
+    color: #cc7700;
   }
 
   .admin-link {
-    color: #00c4ff;
+    color: #007acc;
     font-weight: bold;
 
     &:hover {
       text-decoration: underline;
-      color: #00e0ff;
+      color: #00aaff;
     }
   }
 
   .logout-button {
-    color: #f1f1f1;
-    font-weight: 500;
+    color: #222;
 
     &:hover {
-      color: #ff4d4d;
+      color: #cc0000;
+    }
+  }
+}
+
+/* Dark Mode */
+body.dark .navbar {
+  background-color: #1f1f1f;
+
+  a,
+  button {
+    color: #f0f0f0;
+
+    &:hover {
+      color: #ffcc66;
+    }
+
+    &.active {
+      border-bottom: 2px solid #ffcc66;
+    }
+  }
+
+  .cart-count {
+    color: #ffaa00;
+  }
+
+  .admin-link {
+    color: #66ccff;
+
+    &:hover {
+      color: #99e0ff;
+    }
+  }
+
+  .logout-button {
+    color: #f0f0f0;
+
+    &:hover {
+      color: #ff6666;
     }
   }
 }

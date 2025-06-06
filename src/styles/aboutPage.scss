@@ -1,0 +1,38 @@
+.about-page {
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: var(--about-bg);
+  color: var(--about-text);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, color 0.3s;
+
+  h1 {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+    color: var(--about-heading);
+    text-align: center;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+  }
+}
+
+/* Light Theme */
+:root {
+  --about-bg: #ffffff;
+  --about-text: #222222;
+  --about-heading: #0ea5e9;
+}
+
+/* Dark Theme */
+body.dark-mode {
+  --about-bg: #1e1e1e;
+  --about-text: #e5e5e5;
+  --about-heading: #93c5fd;
+}

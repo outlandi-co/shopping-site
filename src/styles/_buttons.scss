@@ -1,0 +1,8 @@
+/* _buttons.css */
+.button {
+  @apply bg-blue-600 text-white py-2 px-4 rounded;
+}
+
+.button:hover {
+  @apply bg-blue-700;
+}

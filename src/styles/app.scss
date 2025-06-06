@@ -1,21 +1,35 @@
-.header {
-  display: flex;
-  justify-content: flex-end; /* Ensure it's aligned to the right */
-  align-items: center;
-  padding: 20px;
-  background-color: #f8f9fa; /* Light gray background */
-  border-bottom: 1px solid #e0e0e0;
+@import './theme.scss';     // 🌗 Theme support
+@import './buttons.scss';   // ✅ Global button styles
+
+/* ===== Base Styles ===== */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.header-buttons {
-  display: flex;
-  gap: 10px;
-
-  button {
-    margin-left: 10px;
-  }
+body.dark {
+  background-color: #121212;
+  color: #f0f0f0;
 }
 
+a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+body.dark a {
+  color: #00cdd3;
+}
+
+/* ===== Layout ===== */
 .app-container {
   display: flex;
   flex-direction: column;
@@ -25,4 +39,88 @@
 .main-content {
   flex-grow: 1;
   padding: 20px;
+}
+
+.main-wrapper {
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: inherit;
+  color: inherit;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===== Header ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #222222;
+  color: #ffffff;
+  border-bottom: 1px solid #444;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+body.dark .header {
+  background-color: #1a1a1a;
+  border-color: #333;
+}
+
+/* ===== Nav Links ===== */
+.nav-link {
+  color: #ffffff;
+  margin-left: 1rem;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: #00cdd3;
+}
+
+body.dark .nav-link {
+  color: #f0f0f0;
+}
+
+/* ===== Header Buttons ===== */
+.header-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.header-buttons button {
+  margin-left: 10px;
+}
+
+/* ===== Dark Mode Toggle (Optional) ===== */
+.dark-mode-toggle {
+  background: none;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.dark-mode-toggle:hover {
+  background-color: #333;
+  color: #00cdd3;
+}
+
+
+/* ===== Product Cards ===== */
+.productCard {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body.dark .productCard {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+  border-color: #333;
 }

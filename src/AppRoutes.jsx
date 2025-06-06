@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, Routes, Route } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { useTheme } from './context/ThemeContext'; // ✅ Import
 
 import HomePage from './pages/Home-Page/HomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
@@ -11,17 +12,23 @@ import Store from './pages/Store';
 import ProductDetail from './pages/ProductDetail';
 import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
 import AdminPage from './pages/AdminPage/AdminPage';
-
-
+import AboutPage from './pages/AboutPage/AboutPage';
+import UploadArtwork from './components/UploadArtwork'; // ✅ Add this
+import Navbar from './components/NavBar/NavBar';
 
 const AppRoutes = ({
   isAuthenticated,
   setIsAuthenticated,
   handleAddToCart,
   handleRemoveFromCart,
-  cartItems
+  cartItems,
 }) => {
   const navigate = useNavigate();
+  const { darkMode, setDarkMode } = useTheme(); // ✅ Get theme state
+
+  useEffect(() => {
+    document.body.classList.toggle('dark', darkMode); // ✅ Apply class globally
+  }, [darkMode]);
 
   const handleLogin = () => {
     Cookies.set('authToken', 'mockToken');
@@ -37,25 +44,13 @@ const AppRoutes = ({
 
   return (
     <>
-      <header className="p-4 border-b flex justify-between items-center">
-        <nav className="space-x-4">
-          {!isAuthenticated ? (
-            <>
-              <button onClick={() => navigate('/login')}>Login</button>
-              <button onClick={() => navigate('/register')}>Register</button>
-              <button onClick={() => navigate('/membership')}>Membership</button>
-              <button onClick={() => navigate('/forgot-password')}>Forgot Password</button>
-            </>
-          ) : (
-            <>
-              <button onClick={() => navigate('/home')}>Home</button>
-              <button onClick={handleLogout}>Logout</button>
-              <button onClick={() => navigate('/store')}>Store</button>
-              <button onClick={() => navigate('/checkout')}>Checkout</button>
-            </>
-          )}
-        </nav>
-      </header>
+      <Navbar
+        isAuthenticated={isAuthenticated}
+        handleLogout={handleLogout}
+        cartItems={cartItems}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+      />
 
       <Routes>
         <Route path="/" element={<HomePage onAddToCart={handleAddToCart} />} />
@@ -64,6 +59,8 @@ const AppRoutes = ({
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/membership" element={<MembershipPage />} />
         <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/upload" element={<UploadArtwork />} />
         <Route
           path="/store"
           element={
@@ -77,7 +74,6 @@ const AppRoutes = ({
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/admin" element={<AdminPage />} />
-
       </Routes>
     </>
   );

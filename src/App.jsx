@@ -1,40 +1,43 @@
-// App.jsx
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import AppRoutes from './AppRoutes';
-import NavBar from './components/NavBar/NavBar'; // ✅ Import NavBar
+import './styles/app.scss';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 
-const App = () => {
+const AppContent = () => {
+  const { darkMode } = useTheme();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     const token = Cookies.get('authToken');
-    if (token) {
-      setIsAuthenticated(true);
-    }
+    setIsAuthenticated(!!token);
   }, []);
 
-  const handleAddToCart = (item) => {
-    setCartItems((prevItems) => [...prevItems, item]);
-  };
+  // ✅ Toggle dark class on body tag
+  useEffect(() => {
+    document.body.classList.toggle('dark', darkMode);
+  }, [darkMode]);
 
-  const handleRemoveFromCart = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item._id !== itemId));
-  };
+  const handleAddToCart = (item) => setCartItems((prev) => [...prev, item]);
+  const handleRemoveFromCart = (itemId) =>
+    setCartItems((prev) => prev.filter((item) => item._id !== itemId));
 
   return (
-    <>
-      <NavBar /> {/* ✅ NavBar shows on every page */}
-      <AppRoutes
-        isAuthenticated={isAuthenticated}
-        setIsAuthenticated={setIsAuthenticated}
-        handleAddToCart={handleAddToCart}
-        handleRemoveFromCart={handleRemoveFromCart}
-        cartItems={cartItems}
-      />
-    </>
+    <AppRoutes
+      isAuthenticated={isAuthenticated}
+      setIsAuthenticated={setIsAuthenticated}
+      handleAddToCart={handleAddToCart}
+      handleRemoveFromCart={handleRemoveFromCart}
+      cartItems={cartItems}
+    />
   );
 };
+
+const App = () => (
+  <ThemeProvider>
+    <AppContent />
+  </ThemeProvider>
+);
 
 export default App;

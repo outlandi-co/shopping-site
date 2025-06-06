@@ -1,17 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Navbar from './Navbar'; // adjust path if needed
 import logo from '../assets/logo_gradience.png';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, isAuthenticated, handleLogout, cartItems }) => {
   return (
     <div className="app-container">
       <header>
         <img src={logo} alt="Logo" style={{ width: '150px' }} />
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/products">Products</Link>
-          <Link to="/contact">Contact</Link>
-        </nav>
+        <Navbar
+          isAuthenticated={isAuthenticated}
+          handleLogout={handleLogout}
+          cartItems={cartItems}
+        />
       </header>
       <main>{children}</main>
     </div>

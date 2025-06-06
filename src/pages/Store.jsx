@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from '../styles/Store.module.scss';
+import { useNavigate } from 'react-router-dom';
 
-const Store = () => {
+const Store = ({ onAddToCart }) => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [error, setError] = useState(null);
   const [modalImage, setModalImage] = useState(null);
-  const [darkMode, setDarkMode] = useState(() => localStorage.getItem('darkMode') === 'true');
-
-  useEffect(() => {
-    localStorage.setItem('darkMode', darkMode);
-  }, [darkMode]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -39,14 +36,8 @@ const Store = () => {
     return () => window.removeEventListener('keydown', esc);
   }, [modalImage]);
 
-  const containerClass = `${styles.storeContainer} ${darkMode ? styles.dark : ''}`;
-
   return (
-    <div className={containerClass}>
-      <button onClick={() => setDarkMode(!darkMode)} className={styles.toggleButton}>
-        {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
-      </button>
-
+    <div className={styles.storeContainer}>
       <h1 className="text-2xl font-bold text-center mb-4">Store</h1>
       {error && <p className="text-red-500 text-center">{error}</p>}
 
@@ -63,6 +54,30 @@ const Store = () => {
               className={styles.productImage}
             />
             <p className="text-xs font-medium">${product.listPrice?.toFixed(2)}</p>
+
+            <div className={styles.buttonGroup}>
+              <button
+                onClick={() => onAddToCart(product)}
+                className="button success"
+              >
+                Add to Cart
+              </button>
+              <button
+                onClick={() => navigate(`/product/${product._id}`)}
+                className="button primary ml-2"
+              >
+                View Details
+              </button>
+              <button
+                onClick={() => {
+                  onAddToCart(product);
+                  navigate('/checkout');
+                }}
+                className="button primary ml-2"
+              >
+                Buy Now
+              </button>
+            </div>
           </div>
         ))}
       </div>
@@ -72,7 +87,7 @@ const Store = () => {
         <button
           onClick={handlePrev}
           disabled={page === 1}
-          className="px-3 py-1 border rounded disabled:opacity-50"
+          className="button outline"
         >
           Previous
         </button>
@@ -80,13 +95,13 @@ const Store = () => {
         <button
           onClick={handleNext}
           disabled={page === totalPages}
-          className="px-3 py-1 border rounded disabled:opacity-50"
+          className="button outline"
         >
           Next
         </button>
       </div>
 
-      {/* Centered Modal */}
+      {/* Modal */}
       {modalImage && (
         <div className={styles.modalOverlay} onClick={closeModal}>
           <button
@@ -96,7 +111,6 @@ const Store = () => {
           >
             &times;
           </button>
-
           <img
             src={modalImage}
             alt="Modal"
