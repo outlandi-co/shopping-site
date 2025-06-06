@@ -1,32 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
-const UploadArtwork = ({ onUpload }) => {
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    const allowedTypes = /\.(png|jpe?g|svg|ai|psd)$/i;
+const UploadArtwork = () => {
+  const [artworkFile, setArtworkFile] = useState(null);
+  const [productId, setProductId] = useState('');
 
-    if (file && allowedTypes.test(file.name)) {
-      const reader = new FileReader();
-      reader.onload = () => onUpload(reader.result); // ✅ Send base64 string
-      reader.readAsDataURL(file);
-    } else {
-      alert('Unsupported file format. Please upload PNG, JPG, SVG, AI, or PSD.');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!artworkFile) return alert('Please select a file.');
+
+    const formData = new FormData();
+    formData.append('artwork', artworkFile);
+    formData.append('productId', productId); // optional
+
+    try {
+      await axios.post(`${import.meta.env.VITE_API_URL}/upload/upload-artwork`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      alert('✅ Upload successful!');
+    } catch (error) {
+      console.error('❌ Upload error:', error);
+      alert('Upload failed.');
     }
   };
 
   return (
-    <div className="upload-artwork mb-6">
-      <label htmlFor="upload" className="block mb-2 font-semibold">
-        Upload Your Artwork:
-      </label>
+    <form onSubmit={handleSubmit}>
+      <input type="file" accept="image/*" onChange={(e) => setArtworkFile(e.target.files[0])} />
       <input
-        type="file"
-        id="upload"
-        accept=".png,.jpg,.jpeg,.svg,.ai,.psd"
-        onChange={handleFileChange}
-        className="block w-full border border-gray-300 p-2 rounded-md cursor-pointer"
+        type="text"
+        placeholder="Product ID (optional)"
+        value={productId}
+        onChange={(e) => setProductId(e.target.value)}
       />
-    </div>
+      <button type="submit">Upload Artwork</button>
+    </form>
   );
 };
 

@@ -1,0 +1,29 @@
+.previewContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 300px;
+  height: auto;
+}
+
+.baseImage {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.overlay {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: auto;
+  opacity: 0.8;
+  pointer-events: none;
+}

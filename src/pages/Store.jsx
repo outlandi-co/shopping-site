@@ -38,14 +38,13 @@ const Store = ({ onAddToCart }) => {
 
   return (
     <div className={styles.storeContainer}>
-      <h1 className="text-2xl font-bold text-center mb-4">Store</h1>
-      {error && <p className="text-red-500 text-center">{error}</p>}
+      <h1 className={styles.heading}>Store</h1>
+      {error && <p className={styles.error}>{error}</p>}
 
-      {/* Product Grid */}
       <div className={styles.storeGrid}>
         {products.map((product) => (
           <div key={product._id} className={styles.productCard}>
-            <h2 className="text-sm font-semibold mb-2">{product.name}</h2>
+            <h2 className={styles.productTitle}>{product.name}</h2>
             <img
               src={product.image}
               alt={product.name}
@@ -53,18 +52,18 @@ const Store = ({ onAddToCart }) => {
               onError={(e) => (e.currentTarget.src = '/placeholder.jpg')}
               className={styles.productImage}
             />
-            <p className="text-xs font-medium">${product.listPrice?.toFixed(2)}</p>
+            <p className={styles.productPrice}>${product.listPrice?.toFixed(2)}</p>
 
             <div className={styles.buttonGroup}>
               <button
                 onClick={() => onAddToCart(product)}
-                className="button success"
+                className={styles.button}
               >
                 Add to Cart
               </button>
               <button
                 onClick={() => navigate(`/product/${product._id}`)}
-                className="button primary ml-2"
+                className={styles.button}
               >
                 View Details
               </button>
@@ -73,7 +72,7 @@ const Store = ({ onAddToCart }) => {
                   onAddToCart(product);
                   navigate('/checkout');
                 }}
-                className="button primary ml-2"
+                className={styles.button}
               >
                 Buy Now
               </button>
@@ -82,12 +81,11 @@ const Store = ({ onAddToCart }) => {
         ))}
       </div>
 
-      {/* Pagination */}
       <div className={styles.pagination}>
         <button
           onClick={handlePrev}
           disabled={page === 1}
-          className="button outline"
+          className={styles.button}
         >
           Previous
         </button>
@@ -95,13 +93,12 @@ const Store = ({ onAddToCart }) => {
         <button
           onClick={handleNext}
           disabled={page === totalPages}
-          className="button outline"
+          className={styles.button}
         >
           Next
         </button>
       </div>
 
-      {/* Modal */}
       {modalImage && (
         <div className={styles.modalOverlay} onClick={closeModal}>
           <button

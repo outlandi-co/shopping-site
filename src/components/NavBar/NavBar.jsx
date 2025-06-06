@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import '../../styles/navBar.scss';
-import DarkModeToggle from '../DarkModeToggle'; // ✅ Adjust path if needed
+import DarkModeToggle from '../DarkModeToggle';
 
 const Navbar = ({ isAuthenticated, handleLogout, cartItems = [] }) => {
   const navigate = useNavigate();
+  const totalCartQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <nav className="navbar">
@@ -28,8 +29,12 @@ const Navbar = ({ isAuthenticated, handleLogout, cartItems = [] }) => {
           </>
         ) : (
           <>
-            <li><NavLink to="/admin" className="nav-link">Admin</NavLink></li>
-            <li className="cart-count">🛒 {cartItems.length}</li>
+            {/* <li><NavLink to="/admin" className="nav-link">Admin</NavLink></li> */}
+            <li>
+              <NavLink to="/cart" className="nav-link cart-link">
+                🛒 Cart ({totalCartQuantity})
+              </NavLink>
+            </li>
             <li>
               <button onClick={handleLogout} className="logout-button">Logout</button>
             </li>
