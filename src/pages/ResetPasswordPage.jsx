@@ -21,7 +21,7 @@ const ResetPasswordPage = () => {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/auth/reset-password/${token}`,
+        `${import.meta.env.VITE_API_URL}/api/auth/reset-password/${token}`,
         { password }
       );
 
@@ -29,8 +29,9 @@ const ResetPasswordPage = () => {
       setSuccess(true);
       setTimeout(() => navigate('/login'), 3000);
     } catch (err) {
-      console.error('❌ Reset failed:', err);
-      setMessage('❌ Reset failed. The link may be invalid or expired.');
+      const errorMsg = err.response?.data?.message || 'Reset failed.';
+      console.error('❌ Reset failed:', errorMsg);
+      setMessage(errorMsg);
     }
   };
 
@@ -38,7 +39,12 @@ const ResetPasswordPage = () => {
     <div style={{ padding: '2rem', maxWidth: '400px', margin: '0 auto' }}>
       <h2>Reset Your Password</h2>
       {message && (
-        <p style={{ color: success ? 'green' : 'red', fontWeight: 'bold' }}>{message}</p>
+        <>
+          <p style={{ color: success ? 'green' : 'red', fontWeight: 'bold' }}>{message}</p>
+          {message.includes('expired') && (
+            <p>Click <a href="/forgot-password">here</a> to request a new reset link.</p>
+          )}
+        </>
       )}
       <form onSubmit={handleReset}>
         <label htmlFor="password">New Password</label><br />
