@@ -14,8 +14,9 @@ const ForgotPasswordPage = () => {
     console.log('📨 Attempting password reset for:', email);
 
     try {
+      // ✅ Correct endpoint path!
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/auth/forgot-password`,
+        `${import.meta.env.VITE_API_URL}/api/auth/forgot-password`,
         { email }
       );
       console.log('✅ Reset email sent:', response.data);
