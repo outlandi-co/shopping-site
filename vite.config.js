@@ -1,11 +1,10 @@
-// vite.config.js
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
-
   return {
+    // NO "base" property! (or: base: '/', but that's the default)
     plugins: [react()],
     server: {
       port: Number(env.VITE_PORT) || 5173,

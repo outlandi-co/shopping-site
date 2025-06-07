@@ -12,7 +12,7 @@ import ThankYouPage from './pages/ThankYouPage';
 import Store from './pages/Store';
 import ProductDetail from './pages/ProductDetail';
 import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
-import ResetPasswordPage from './pages/ResetPasswordPage'; // ✅ This should work
+import ResetPasswordPage from './pages/ResetPasswordPage'; // ✅ Correct import
 import AdminPage from './pages/AdminPage/AdminPage';
 import AboutPage from './pages/AboutPage/AboutPage';
 import UploadArtwork from './components/UploadArtwork';
@@ -71,7 +71,7 @@ const AppRoutes = ({
         <Route path="/store" element={<Store onAddToCart={handleAddToCart} cartItems={cartItems} />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/reset-password/:token" element={<ResetPasswordPage />} /> {/* ✅ NEW */}
+        <Route path="/reset-password/:token" element={<ResetPasswordPage />} /> {/* ✅ Password reset route */}
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/artworks" element={<AdminArtwork />} />
         <Route path="/cart" element={
